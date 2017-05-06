@@ -15,9 +15,12 @@ namespace MVC5Course.Controllers
         private FabricsEntities db = new FabricsEntities();
 
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(bool Active1 = true)
         {
-            return View(db.Product.OrderByDescending(p => p.ProductId).Take(10));
+            var data = db.Product
+                .Where(d => d.Active.HasValue && d.Active.Value == Active1)
+                .OrderByDescending(p => p.ProductId).Take(10);
+            return View(data);
         }
 
         // GET: Products/Details/5
@@ -122,6 +125,20 @@ namespace MVC5Course.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult ListProducts()
+        {
+            var data = db.Product
+                .Where(d => d.Active.HasValue && d.Active == true)
+                .Select(d => new ProductsListVM()
+                {
+                    ProductId = d.ProductId,
+                    ProductName = d.ProductName,
+                    Price = d.Price,
+                    Stock = d.Stock
+                });
+            return View(data);
         }
     }
 }
