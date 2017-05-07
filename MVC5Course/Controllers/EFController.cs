@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MVC5Course.Models;
+using System.Data.Entity.Validation;
 
 namespace MVC5Course.Controllers
 {
@@ -86,12 +87,23 @@ namespace MVC5Course.Controllers
             //    db.OrderLine.Remove(item);
             //}
 
-            //這一句等於上面的那一句
-            db.OrderLine.RemoveRange(product.OrderLine);
+            ////這一句等於上面的那一句
+            //db.OrderLine.RemoveRange(product.OrderLine);
 
-            db.Product.Remove(product);
+            //db.Product.Remove(product);
             //在最後一步時才做SaveChange(), 以免有髒資料產生
-            db.SaveChanges();
+
+            product.IsDeleted = true;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+
+                throw ex;
+            }
             return RedirectToAction("Index");
         }
     }
