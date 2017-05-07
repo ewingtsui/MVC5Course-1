@@ -4,10 +4,18 @@ namespace MVC5Course.Models
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
 
     [MetadataType(typeof(ProductMetaData))]
     public partial class Product
     {
+        public int 訂單數量 { get {
+                return this.OrderLine.Count;
+
+                return this.OrderLine.Where(p => p.Qty > 100).Count();
+                return this.OrderLine.Where(p => p.Qty > 100).ToList().Count();
+                return this.OrderLine.Count(p=>p.Qty > 400); //這個方法效能最好, 上面3個效能很差
+            } }
     }
     
     public partial class ProductMetaData
@@ -29,7 +37,7 @@ namespace MVC5Course.Models
         [DisplayName("是否上架")]
         public Nullable<bool> Active { get; set; }
         [Required]
-        [Range(0, 100, ErrorMessage = "請設定正確的庫存數量範圍")]
+        [Range(0, 2000, ErrorMessage = "請設定正確的庫存數量範圍")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:0}")]
         [DisplayName("庫存數量")]
         public Nullable<decimal> Stock { get; set; }
