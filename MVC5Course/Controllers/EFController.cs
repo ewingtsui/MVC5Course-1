@@ -123,6 +123,7 @@ namespace MVC5Course.Controllers
 
             //直接使用sql command, 效能最好
             db.Database.ExecuteSqlCommand("DELETE FROM dbo.Product");
+            return View();
         }
     }
 }

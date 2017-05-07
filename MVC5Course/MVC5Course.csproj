@@ -243,6 +243,7 @@
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductsListVM.cs" />
+    <Compile Include="Models\ValidationAttributes\商品名稱必須包含Ewing字串Attribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
