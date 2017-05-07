@@ -24,7 +24,7 @@ namespace MVC5Course.Models
         public int ProductId { get; set; }
 
         [Required(ErrorMessage = "請輸入產品名稱")]
-        [MinLength(3), MaxLength(30)]
+        [MinLength(3), MaxLength(300)]
         //[RegularExpression("(.+)-(.+)", ErrorMessage = "商品名稱錯誤")]
         [DisplayName("商品名稱")]
         public string ProductName { get; set; }

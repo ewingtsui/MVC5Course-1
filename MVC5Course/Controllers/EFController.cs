@@ -93,7 +93,7 @@ namespace MVC5Course.Controllers
             //db.Product.Remove(product);
             //在最後一步時才做SaveChange(), 以免有髒資料產生
 
-            product.IsDeleted = true;
+            product.Is刪除 = true;
 
             try
             {
@@ -105,6 +105,24 @@ namespace MVC5Course.Controllers
                 throw ex;
             }
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Details(int id)
+        {
+            var data = db.Database.SqlQuery<Product>("SELECT * FROM dbo.Product WHERE ProductID = @p0", id).FirstOrDefault();
+
+            return View(data);
+        }
+
+        //刪除全部的資料
+        public ActionResult RemoveAll()
+        {
+            ////效能很差
+            //db.Product.RemoveRange(db.Product);
+            //db.SaveChanges();
+
+            //直接使用sql command, 效能最好
+            db.Database.ExecuteSqlCommand("DELETE FROM dbo.Product");
         }
     }
 }
