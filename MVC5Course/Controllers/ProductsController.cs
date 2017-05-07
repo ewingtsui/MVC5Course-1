@@ -140,5 +140,22 @@ namespace MVC5Course.Controllers
                 });
             return View(data);
         }
+
+        public ActionResult CreateProduct()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateProduct([Bind(Include = "ProductId,ProductName,Price,Active,Stock")] ProductsListVM data)
+        {
+            if (ModelState.IsValid)
+            {
+                //db.Product.Add(data);
+                //db.SaveChanges();
+                return RedirectToAction("ListProducts");
+            }
+            return View();
+        }
     }
 }
