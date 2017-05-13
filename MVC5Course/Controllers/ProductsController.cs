@@ -154,6 +154,16 @@ namespace MVC5Course.Controllers
 
             //Repository
             repo.Delete(product);
+
+            //刪除Product之前先將OrderLine中同樣ProductId的資料也一併刪除
+            //var repoOrderLines = 
+            //    RepositoryHelper.GetOrderLineRepository(repo.UnitOfWork);
+
+            //foreach (var item in product.OrderLine)
+            //{
+            //    repoOrderLines.Delete(item);
+            //}
+
             repo.UnitOfWork.Commit();
 
             ////原來寫法
@@ -194,7 +204,7 @@ namespace MVC5Course.Controllers
             //            Price = d.Price,
             //            Stock = d.Stock
             //        });
-            
+
             return View(data);
         }
 

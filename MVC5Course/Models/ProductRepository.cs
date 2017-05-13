@@ -14,11 +14,12 @@ namespace MVC5Course.Models
 
         public IQueryable<Product> All(bool showAll)
         {
+            //若showAll為 true, 則連 Is刪除 = 0 的資料也會顯示出來, show base.All()
             if (showAll)
             {
                 return base.All();
             }
-            else
+            else  //若showAll為 false, 則 Is刪除 = 0 的資料不會顯示出來, show 上方override過的 this.All()
             {
                 return this.All();
             }
@@ -32,6 +33,7 @@ namespace MVC5Course.Models
         public IQueryable<Product> GetProduct列表頁所有資料(bool Active, bool showAll = false)
         {
             IQueryable<Product> all = this.All();
+
             if (showAll)
             {
                 all = base.All();
