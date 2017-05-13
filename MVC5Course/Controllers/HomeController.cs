@@ -51,5 +51,18 @@ namespace MVC5Course.Controllers
         {
             return PartialView("SuccessRedirect", "/");
         }
+
+        public ActionResult GetFile()
+        {
+            //return File(Server.MapPath("~/Content/fileList.jpg"), "image/jpeg", "NewName_fileList.jpg");
+            return File(Server.MapPath("~/Content/fileList.jpg"), "image/jpeg");
+
+        }
+
+        public ActionResult GetJson()
+        {
+            db.Configuration.LazyLoadingEnabled = false;
+            return Json(db.Product.Take(5),JsonRequestBehavior.AllowGet);
+        }
     }
 }

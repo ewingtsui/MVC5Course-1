@@ -31,7 +31,12 @@ namespace MVC5Course.Controllers
             //var data = db.Product
             //    .Where(d => d.Active.HasValue && d.Active.Value == Active1)
             //    .OrderByDescending(p => p.ProductId).Take(10);
+
             return View(data);
+
+            // 也可以寫成下面這種方法
+            //ViewData.Model = data;
+            //return View();
         }
 
         // GET: Products/Details/5
