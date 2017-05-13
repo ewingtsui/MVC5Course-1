@@ -149,6 +149,9 @@ namespace MVC5Course.Controllers
         {
             Product product = repo.Get單筆資料ByProductId(id);
 
+            ////取消所有驗證 (也可以放在Repository)
+            //repo.UnitOfWork.Context.Configuration.ValidateOnSaveEnabled = false;
+
             //Repository
             repo.Delete(product);
             repo.UnitOfWork.Commit();
