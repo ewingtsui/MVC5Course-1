@@ -201,7 +201,7 @@ namespace MVC5Course.Controllers
         /// 直接加上搜尋條件
         /// </summary>
         /// <returns></returns>
-        public ActionResult ListProducts(string q)
+        public ActionResult ListProducts(string q, int Stock_S = 0, int Stock_E = 9999)
         {
             var data = repo.GetProduct列表頁所有資料(true);
 
@@ -209,6 +209,8 @@ namespace MVC5Course.Controllers
             {
                 data = data.Where(p => p.ProductName.Contains(q));
             }
+
+            data = data.Where(p => p.Stock > Stock_S && p.Stock < Stock_E);
 
             ViewData.Model = data
                              .Select(p => new ProductsListVM()

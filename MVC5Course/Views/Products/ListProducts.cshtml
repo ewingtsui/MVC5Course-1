@@ -6,18 +6,21 @@
 
 @if (TempData["CreateProduct_Result"] != null)
 {
-        <h1>@TempData["CreateProduct_Result"]</h1>
+    <h1>@TempData["CreateProduct_Result"]</h1>
 }
 
 <h2>ListProducts</h2>
 
 @*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>*@
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
 
 <form method="get">
-    篩選:
+    商品名稱:
     @Html.TextBox("q")
+    庫存數量:
+    @Html.TextBox("Stock_S", null, new { size = "10", type = "number" }) ~
+    @Html.TextBox("Stock_E", null, new { size = "10", type = "number" })
     <button>搜尋</button>
 </form>
 
