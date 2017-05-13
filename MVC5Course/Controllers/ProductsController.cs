@@ -12,14 +12,21 @@ namespace MVC5Course.Controllers
 {
     public class ProductsController : Controller
     {
+        ProductRepository repo = RepositoryHelper.GetProductRepository();
         private FabricsEntities db = new FabricsEntities();
 
         // GET: Products
         public ActionResult Index(bool Active1 = true)
         {
-            var data = db.Product
+            //使用 Repository寫法
+            var data = repo.All()
                 .Where(d => d.Active.HasValue && d.Active.Value == Active1)
                 .OrderByDescending(p => p.ProductId).Take(10);
+
+            //原來寫法
+            //var data = db.Product
+            //    .Where(d => d.Active.HasValue && d.Active.Value == Active1)
+            //    .OrderByDescending(p => p.ProductId).Take(10);
             return View(data);
         }
 
@@ -30,7 +37,9 @@ namespace MVC5Course.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Product.Find(id);
+            //使用 ProductRepository 的寫法
+            Product product = repo.Get單筆資料ByProductId(id.Value);
+            //Product product = db.Product.Find(id);  --原來寫法
             if (product == null)
             {
                 return HttpNotFound();
