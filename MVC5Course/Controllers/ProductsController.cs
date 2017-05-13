@@ -32,11 +32,20 @@ namespace MVC5Course.Controllers
             //    .Where(d => d.Active.HasValue && d.Active.Value == Active1)
             //    .OrderByDescending(p => p.ProductId).Take(10);
 
-            return View(data);
+            ////原來的寫法
+            //return View(data);
 
-            // 也可以寫成下面這種方法
-            //ViewData.Model = data;
-            //return View();
+            //也可以寫成下面這種方法(可讀性較高)
+
+            ViewData.Model = data;  //強型別
+
+            ViewData["ppp"] = data;  //弱型別
+
+            ViewBag.qqq = data;   //弱型別
+
+            //TempData["rrr"] = data;  //弱型別, 通常用在表單顯示, 只要被讀取1次資料就立刻消失
+
+            return View();
         }
 
         // GET: Products/Details/5
@@ -223,6 +232,9 @@ namespace MVC5Course.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                TempData["CreateProduct_Result"] = "商品新增成功";
+
                 //db.Product.Add(data);
                 //db.SaveChanges();
                 return RedirectToAction("ListProducts");
