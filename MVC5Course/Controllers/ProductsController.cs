@@ -157,7 +157,7 @@ namespace MVC5Course.Controllers
 
             //刪除Product之前先將OrderLine中同樣ProductId的資料也一併刪除
             //var repoOrderLines = 
-            //    RepositoryHelper.GetOrderLineRepository(repo.UnitOfWork);
+            //    RepositoryHelper.GetOrderLineRepository(repo.UnitOfWork);  //這種寫法可以共用repo的unitOfWork的commit, 不用另外再寫一個commit
 
             //foreach (var item in product.OrderLine)
             //{
