@@ -197,30 +197,55 @@ namespace MVC5Course.Controllers
         //    base.Dispose(disposing);
         //}
 
-
-        public ActionResult ListProducts()
+        /// <summary>
+        /// 直接加上搜尋條件
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ListProducts(string q)
         {
-            var data = repo.GetProduct列表頁所有資料(true)
-                 .Select(p => new ProductsListVM()
-                 {
-                     ProductId = p.ProductId,
-                     ProductName = p.ProductName,
-                     Price = p.Price,
-                     Stock = p.Stock
-                 });
+            var data = repo.GetProduct列表頁所有資料(true);
 
-            //    var data = db.Product
-            //        .Where(d => d.Active.HasValue && d.Active == true)
-            //        .Select(d => new ProductsListVM()
-            //        {
-            //            ProductId = d.ProductId,
-            //            ProductName = d.ProductName,
-            //            Price = d.Price,
-            //            Stock = d.Stock
-            //        });
+            if (!String.IsNullOrEmpty(q))
+            {
+                data = data.Where(p => p.ProductName.Contains(q));
+            }
 
-            return View(data);
+            ViewData.Model = data
+                             .Select(p => new ProductsListVM()
+                             {
+                                 ProductId = p.ProductId,
+                                 ProductName = p.ProductName,
+                                 Price = p.Price,
+                                 Stock = p.Stock
+                             });
+
+            return View();
         }
+
+        //原來寫法
+        //public ActionResult ListProducts()
+        //{
+        //    var data = repo.GetProduct列表頁所有資料(true)
+        //         .Select(p => new ProductsListVM()
+        //         {
+        //             ProductId = p.ProductId,
+        //             ProductName = p.ProductName,
+        //             Price = p.Price,
+        //             Stock = p.Stock
+        //         });
+
+        //    //    var data = db.Product
+        //    //        .Where(d => d.Active.HasValue && d.Active == true)
+        //    //        .Select(d => new ProductsListVM()
+        //    //        {
+        //    //            ProductId = d.ProductId,
+        //    //            ProductName = d.ProductName,
+        //    //            Price = d.Price,
+        //    //            Stock = d.Stock
+        //    //        });
+
+        //    return View(data);
+        //}
 
         public ActionResult CreateProduct()
         {

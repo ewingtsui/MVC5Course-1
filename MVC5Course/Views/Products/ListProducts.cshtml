@@ -11,9 +11,16 @@
 
 <h2>ListProducts</h2>
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
+
+<form method="get">
+    篩選:
+    @Html.TextBox("q")
+    <button>搜尋</button>
+</form>
+
 <table class="table">
     <tr>
         <th>
