@@ -10,7 +10,7 @@ using MVC5Course.Models;
 
 namespace MVC5Course.Controllers
 {
-    public class ProductsController : Controller
+    public class ProductsController : baseController
     {
         ProductRepository repo = RepositoryHelper.GetProductRepository();
 

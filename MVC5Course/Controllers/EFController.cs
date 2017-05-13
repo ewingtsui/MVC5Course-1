@@ -8,9 +8,8 @@ using System.Data.Entity.Validation;
 
 namespace MVC5Course.Controllers
 {
-    public class EFController : Controller
+    public class EFController : baseController
     {
-        FabricsEntities db = new FabricsEntities();
 
         // GET: EF
         public ActionResult Index()
