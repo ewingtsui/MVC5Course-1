@@ -272,6 +272,7 @@
       <DependentUpon>IRepository.EF6..tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ValidationAttributes\商品名稱必須包含Ewing字串Attribute.cs" />
+    <Compile Include="Models\ViewModels\ProductListSearchVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

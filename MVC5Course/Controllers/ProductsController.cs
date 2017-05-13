@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVC5Course.Models;
+using MVC5Course.Models.ViewModels;
 
 namespace MVC5Course.Controllers
 {
@@ -197,20 +198,20 @@ namespace MVC5Course.Controllers
         //    base.Dispose(disposing);
         //}
 
-        /// <summary>
-        /// 直接加上搜尋條件
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult ListProducts(string q, int Stock_S = 0, int Stock_E = 9999)
+        //多欄位的複雜ModelBinding作法
+        public ActionResult ListProducts(ProductListSearchVM searchCondition)
         {
             var data = repo.GetProduct列表頁所有資料(true);
 
-            if (!String.IsNullOrEmpty(q))
-            {
-                data = data.Where(p => p.ProductName.Contains(q));
-            }
+            //if (ModelState.IsValid)
+            //{
+                if (!String.IsNullOrEmpty(searchCondition.q))
+                {
+                    data = data.Where(p => p.ProductName.Contains(searchCondition.q));
+                }
 
-            data = data.Where(p => p.Stock > Stock_S && p.Stock < Stock_E);
+                data = data.Where(p => p.Stock > searchCondition.Stock_S && p.Stock < searchCondition.Stock_E);
+            //}
 
             ViewData.Model = data
                              .Select(p => new ProductsListVM()
@@ -223,6 +224,30 @@ namespace MVC5Course.Controllers
 
             return View();
         }
+
+        ////多欄位的簡單ModelBinding作法
+        //public ActionResult ListProducts(string q, int Stock_S = 0, int Stock_E = 9999)
+        //{
+        //    var data = repo.GetProduct列表頁所有資料(true);
+
+        //    if (!String.IsNullOrEmpty(q))
+        //    {
+        //        data = data.Where(p => p.ProductName.Contains(q));
+        //    }
+
+        //    data = data.Where(p => p.Stock > Stock_S && p.Stock < Stock_E);
+
+        //    ViewData.Model = data
+        //                     .Select(p => new ProductsListVM()
+        //                     {
+        //                         ProductId = p.ProductId,
+        //                         ProductName = p.ProductName,
+        //                         Price = p.Price,
+        //                         Stock = p.Stock
+        //                     });
+
+        //    return View();
+        //}
 
         //原來寫法
         //public ActionResult ListProducts()
